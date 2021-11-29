@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {sequelize, Todo} = require('../models');
+const { Todo } = require('../models');
 
 // Get all todos
 router.get('/',async (req, res) => {
@@ -11,7 +11,7 @@ router.get('/',async (req, res) => {
    }
    catch (error) {
         console.log(error);
-        return res.status(500).json(error);
+        return res.status(500).end();
    }
 });
 
@@ -27,39 +27,41 @@ router.post('/',async (req, res) => {
     }
     catch (error) {
        console.log(error);
-       return res.status(400).json(error);
+       return res.status(400).end();
     }
  });
 
  //Update a todo
- router.put('/',async (req, res) => {
-   const { id, text, isDone } = req.body;   
+ router.put('/:id',async (req, res) => {
+   const { text, isDone } = req.body;   
+   const id = req.params.id
 
    try {
 
       const todo = await Todo.update({ text, isDone }, { where: { id } });
 
-      return res.status(201).send({ success: true });
+      return res.status(201).end();
    }
    catch (error) {
       console.log(error);
-      return res.status(400).json(error);
+      return res.status(400).end();
    }
 });
 
  //Delete a todo
- router.delete('/',async (req, res) => {
-   const { id } = req.body;   
-
+ router.delete('/:id',async (req, res) => {
+   //const { id } = req.body;   
+   const id = req.params.id
+   
    try {
 
       await Todo.destroy({ where: { id } });
 
-      return res.status(201).send({ success: true });
+      return res.status(201).end();
    }
    catch (error) {
       console.log(error);
-      return res.status(400).json(error);
+      return res.status(400).end();
    }
 });
 

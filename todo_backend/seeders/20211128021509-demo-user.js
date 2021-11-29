@@ -6,22 +6,19 @@ module.exports = {
        'todos',
        [
          {
-            id: 1,
             text: 'Wash the dishes',
             isDone: true,
             createdAt: new Date(),
             updatedAt: new Date(),
           },
           {
-            id: 2,
-            text: "Master Rubik's Cube",
-            isDone: false,
+            text: 'Finish Ensolvers excercise',
+            isDone: true,
             createdAt: new Date(),
             updatedAt: new Date(),
           },
           {
-            id: 3,
-            text: 'Take over the world',
+            text: "Master Rubik's Cube",
             isDone: false,
             createdAt: new Date(),
             updatedAt: new Date(),

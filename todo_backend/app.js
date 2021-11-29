@@ -1,15 +1,15 @@
 const express = require('express');
 const { sequelize, Todo } = require('./models');
+const cors = require('cors');
 
 const app = express();
-// Init Middleware
-app.use(express.json({
-   extended: false
-}));
+
+app.use(express.json({ extended: false }));
+app.use(cors());
 
 
-app.get('/', (req, res) => {
-   res.send('The API is running as expected, WELL DONE!!!')
+app.get('/health', (req, res) => {
+   res.send({health:'The API is running as expected'})
 });
 
 // Define Routes
