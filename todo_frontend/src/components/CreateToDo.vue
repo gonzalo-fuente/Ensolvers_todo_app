@@ -1,5 +1,13 @@
 <template>
   <div class="container" style="max-width: 720px">
+  
+    <!-- Error Section -->
+    <div v-show="errors.size" class="alert alert-danger mt-5" role="alert"
+    @click="resetErrors" 
+    >
+      <p class="mb-0" v-for="error in errors" :key="error">{{ error }}</p>
+    </div> 
+  
     <!-- Input Section -->
     <h2 class="text-center mt-3">Create Task</h2>
     <div class="d-flex mt-5">
@@ -12,13 +20,6 @@
         Submit
       </button>
     </div>
-
-    <!-- Error Section -->
-    <div v-show="errors.length" class="alert alert-danger mt-5" role="alert">
-      <div v-for="(error, index) in errors" :key="index">
-        {{ error.message }}
-      </div>
-    </div>   
 
     <!-- Todo List Section -->
     <h2 class="text-center mt-5">Task's List</h2>
@@ -72,7 +73,7 @@ export default {
       newTask: "",
       newTodo: {},
       tasks: [],
-      errors: []
+      errors: new Set()
     };
   },
 
@@ -82,7 +83,7 @@ export default {
       this.tasks.sort((a,b)=>a.id-b.id);
     }
     catch(e) {
-      this.errors.push(e);
+      this.errors.add(e.message);
     }
     
   },
@@ -94,7 +95,7 @@ export default {
         this.tasks.splice(index, 1);
       }
       catch(e) {
-        this.errors.push(e);
+        this.errors.add(e.message);
       }
     },
 
@@ -104,7 +105,7 @@ export default {
         await putTodos(this.tasks[index], this.tasks[index].id);
       }
       catch(e) {
-        this.errors.push(e);
+        this.errors.add(e.message);
       }
     },
 
@@ -122,15 +123,19 @@ export default {
           isDone: false,
         };
 
-      
         this.newTodo.id = await postTodos(this.newTodo);
         this.tasks.push(this.newTodo);
       }
       catch(e) {
-        this.errors.push(e);
+        this.errors.add(e.message);
       }
       //Clear the input form text
       this.newTask = "";
+    },
+
+    resetErrors() {
+      console.log("errors");
+      this.errors.clear();
     },
   },
 };

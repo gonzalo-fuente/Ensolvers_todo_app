@@ -1,6 +1,14 @@
 <template>
 
   <div class="container" style="max-width: 720px">
+    
+    <!-- Error Section -->
+    <div v-show="errors.size" class="alert alert-danger mt-5" role="alert"
+    @click="resetErrors" 
+    >
+      <p class="mb-0" v-for="error in errors" :key="error">{{ error }}</p>
+    </div> 
+
     <!-- Edit Section -->
     <h2 class="text-center mt-3">Edit Task</h2>
     <div class="d-flex mt-5">
@@ -19,12 +27,7 @@
         Cancel
       </button>
     </div>
-    <!-- Error Section -->
-    <div v-show="errors.length" class="alert alert-danger mt-5" role="alert">
-      <div v-for="(error, index) in errors" :key="index">
-        {{ error.message }}
-      </div>
-    </div> 
+
   </div>
 
 </template>
@@ -42,13 +45,18 @@ export default {
                 this.$emit('cancel');
             }
             catch(e) {
-                this.errors.push(e);
+                this.errors.add(e.message);
             }
         },
         
         cancelEdit() {
             this.$emit('cancel');
-        }
+        },
+        
+        resetErrors() {
+          console.log("errors");
+          this.errors.clear();
+        },
     },
 }
 </script>
