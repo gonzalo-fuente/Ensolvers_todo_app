@@ -10,7 +10,13 @@ It’s a list of tasks you need to complete, or things that you want to do.
 - NPM v8.1.4
 - PostgreSQL v14.1
 
-# How to run the App
+# How to run the App with single command
+
+In the terminal run...
+
+### `./starttodoapp.sh`
+
+# How to run the App manually
 
 Go to the project root directory, and run...
 

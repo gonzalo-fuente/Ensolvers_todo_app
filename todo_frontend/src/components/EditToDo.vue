@@ -6,6 +6,7 @@
     <div v-show="errors.size" class="alert alert-danger mt-5" role="alert"
     @click="resetErrors" 
     >
+      <p class="text-black-50 fst-italic">Click on the errors to dismiss</p>
       <p class="mb-0" v-for="error in errors" :key="error">{{ error }}</p>
     </div> 
 
