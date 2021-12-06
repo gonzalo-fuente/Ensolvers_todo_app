@@ -5,7 +5,9 @@ const { Todo } = require('../models');
 // Get all todos
 router.get('/',async (req, res) => {
    try {
-        const todos = await Todo.findAll();
+        const todos = await Todo.findAll({ 
+           order: [['id', 'ASC']],
+         });
         
         return res.status(200).json(todos);
    }
